@@ -473,4 +473,56 @@ tmux_conf_uninstall_plugins_on_reload=true
 #
 # "$@"
 # # /!\ do not remove the previous line
+
+# 基本的なコマンド #
+#
+# ペイン入替え        C-t {
+# ペイン時計方向移動  C-t o
+# 直前のペインに移動  C-t l
+# ウインドウ一覧      C-t w
+# ウインドウ閉じる    C-t x
+# ウインドウ入替え    swap-wintdow -t n
+# ウインドウ入替え    swap-wintdow -s n -t n
+# ウインドウ移動      move-wintdow -t n
+# 時計 C-t t
+# ペイン縦分割 C-t v
+# ペイン横分割 C-t s
+# ペイン閉じる C-t q
+# ペイン解除してウインドウ化 C-t !
+# 現在のペインを最大化/復帰 C-t z
+# ペイン番号表示と移動 C-t a (0...9)
+
+# プレフィックス
+set -g prefix C-t
+unbind C-b
+bind C-t send-prefix
+
+# ### # ペイン番号を表示
+set -g display-panes-time 10000 # 時間指定
+unbind a
+bind a display-panes
+# ### # ペイン分割
+bind v split-window -h # 縦分割（ペインを水平に並べるの意味）
+bind s split-window -v # 横分割（ペインを縦に並べるの意味）
+bind q kill-pane  # ペイン終了
+bind T break-pane # 現在のペインを新しいウィンドウの単独ペインにする
+### # ペイン間の移動
+bind j select-pane -D
+bind k select-pane -U
+bind h select-pane -L
+bind l select-pane -R
+### # ペインのサイズ変更
+bind -r J resize-pane -D 3
+bind -r K resize-pane -U 3
+bind -r H resize-pane -L 3
+bind -r L resize-pane -R 3
+
+
+
+
+
+
+
+
+
 # #     do not write below this line
