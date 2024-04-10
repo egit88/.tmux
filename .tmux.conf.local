@@ -517,11 +517,67 @@ bind -r K resize-pane -U 3
 bind -r H resize-pane -L 3
 bind -r L resize-pane -R 3
 
+########################################################################
 
+# ### # clock
+set -g clock-mode-colour "#81a2be"
+set -g clock-mode-style 24
+### # ### # カレントではないウィンドウに変化があったときの通知をしない
+### setw -g monitor-activity off
+### # ### # ウィンドウ名が自動的に更新されないようにする
+### setw -g automatic-rename off
+### setw -g allow-rename off
+### # ### # セッションで作成される新しいウィンドウのデフォルトの端末。環境変数TERMのデフォルト値。通常"screen"
+### # ### set -g default-terminal "screen-256color"
+### set-option -ga terminal-overrides ",xterm-256color:RGB"
+### # ### set-option -ga terminal-overrides ",xterm-256color*:Tc"
+### # ### # メッセージ表示時間(ミリ秒)
+### set -g display-time 2000
+### # ### # ウィンドウが閉じられたらインデックス番号の隙間を詰める
+### set-option -g renumber-windows on
+### # ### # 履歴を増やす
+### set-option -g history-limit 50000
+### # ### # ビジュアルノーティフィケーション
+### set -g visual-activity on
+### # ### # ウィンドウマネージャ向けのタイトル
+### set -g set-titles on
+### # # set -g set-titles-string "[tmux] #T @ #H"
+### # # set -g set-titles-string "[tmux- #S ]#T@#H"
+### set -g set-titles-string "[#S] #H"
+### # ### ## 設定ファイルを再読込する
+### unbind r
+### bind r source-file ~/.tmux.conf\; display-message "[tmux] $HOME/.tmux.conf reloaded."
+# ### # コピーモードのキーマップ。標準はemacs
+setw -g mode-keys vi
+### # ### # prefix + C-c でも新規ウィンドウ作成
+### bind ^c new-window
+# ### # prefix + C-w でもウィンドウ一覧選択を表示
+bind ^w choose-window
+### # ### # prefix + C-f でもウィンドウ検索
+### bind ^f command-prompt -p "find-window:" "find-window %%"
+### # ### # 新しいSSH接続を名前をつけたウィンドウで作成する。
+### unbind s
+### ### bind-key s command-prompt -p "ssh new-window" "new-window -n %1 'ssh -t %1'"
+### bind-key ^s command-prompt -p "ssh vertical-split" "split-window -h 'ssh -t %1'"
+### bind-key S command-prompt -p "ssh horizontal-split" "split-window 'ssh -t %1'"
+### # tmuxは起動時に、環境変数をグローバル環境変数に格納する。
+### # かつ、セッションごとにも環境変数を持っている。
+### # なので新しいウインドウを作る時にグローバル環境変数をマージして子プロセスに渡す。
+### # tmux show-environment で確認可能。
+### set -g update-environment "SSH_ASKPASS SSH_AUTH_SOCK SSH_AGENT_PID SSH_CONNECTION"
+###
+### # https://www.dwarmstrong.org/neovim/
+### set -g default-terminal "tmux-256color"
 
+########################################################################
 
+# Start windows and panes at 0, not 1
+set -g base-index 0
+setw -g pane-base-index 0
 
-
+# Move windows
+bind-key n next-window
+bind-key p previous-window
 
 
 
